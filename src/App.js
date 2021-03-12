@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import HomeScreen from "./components/HomeScreen";
+import SearchNotFound from "./components/SearchNotFound";
+import SearchPage from "./components/SearchPage";
+import './App.css'
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "shards-ui/dist/css/shards.min.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" component={HomeScreen} exact />
+        <Route path="/search" component={SearchPage} exact />
+        <Route path="/search-404" component={SearchNotFound} exact />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
