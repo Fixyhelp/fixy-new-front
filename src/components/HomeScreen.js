@@ -118,15 +118,31 @@ const HomeScreen = () => {
                         </div>
                         
                         <div style={{display: "none", marginTop: 10}} id="vib">
-                            <InputGroup size="lg">
+                            <InputGroup size="sm">
                                 <GooglePlacesAutocomplete
                                     apiKey="AIzaSyALbxSOuepEufVuCuZs9KksXWocvsCiIJA"
                                     selectProps={{
                                         loca,
                                         onChange: setLoca,
+                                        styles: {
+                                          input: (provided) => ({
+                                            ...provided,
+                                            color: 'blue',
+                                            width: 100,
+                                          }),
+                                          option: (provided) => ({
+                                            ...provided,
+                                            color: 'blue',
+                                          }),
+                                          singleValue: (provided) => ({
+                                            ...provided,
+                                            color: 'blue',
+                                          }),
+                                        },
                                     }}
+                                    
                                 />
-                                <Button theme="light" size="sm" onClick={() => {
+                                <Button theme="light" className="ml-auto" size="sm" onClick={() => {
 
                                 }}
                                 >Done</Button>
