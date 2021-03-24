@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import cookie from 'react-cookies';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import GooglePlacesAutocomplete, { geocodeByAddress } from 'react-google-places-autocomplete';
 import { 
     InputGroup,
     InputGroupText,
@@ -27,6 +28,8 @@ const HomeScreen = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [queryStr, setQueryStr] = useState("");
     const [loca, setLoca] = useState(null);
+
+    const history = useHistory();
 
     const toggle = () => {
         modalSet({
@@ -108,11 +111,32 @@ const HomeScreen = () => {
                     <ModalBody className="p-2">
                         <h6 className="d-inline" style={{fontSize: 12}}>Select a prefered Location?</h6>
                         <div className="d-inline ml-5">
-                            <a style={{fontSize: 10, marginRight: 6, color: grey[500], cursor: "pointer"}}>No</a>
+                            <a style={{fontSize: 10, marginRight: 6, color: grey[500], cursor: "pointer"}} onClick={() => {
+                                
+                                fetch(`https://api.fixy.help/api/v1/tags?string=${queryStr}`)
+                                .then(response => response.json())
+                                .then(async(data) => {
+                                    const tags = data.payload.data;
+
+                                    // console.log(loca.label);
+
+                                    await fetch(`https://api.fixy.help/api/v1/?fix=${queryStr}&location=unkown&tags=${tags}`)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            // console.log(data.payload);
+                                            cookie.save('requested', data.payload.data.id);
+                                            // console.log(data.payload.data.id);
+                                            history.push('/search');
+                                    });
+                                });
+                            }}>No</a>
                             <a 
                                 style={{color: blue[300], fontSize: 10, cursor: "pointer"}}
                                 onClick={() => {
                                     document.getElementById('vib').style.display = "block";
+                                    // geocodeByAddress('Nigeria')
+                                    //     .then(results => console.log(results))
+                                    //     .catch(error => console.error(error));
                                 }}
                                 >Yes</a>
                         </div>
@@ -132,7 +156,7 @@ const HomeScreen = () => {
                                           }),
                                           option: (provided) => ({
                                             ...provided,
-                                            color: 'blue',
+                                            color: 'grey',
                                           }),
                                           singleValue: (provided) => ({
                                             ...provided,
@@ -143,14 +167,29 @@ const HomeScreen = () => {
                                     
                                 />
                                 <Button theme="light" className="ml-auto" size="sm" onClick={() => {
+                                    fetch(`https://api.fixy.help/api/v1/tags?string=${queryStr}`)
+                                        .then(response => response.json())
+                                        .then(async(data) => {
+                                            const tags = data.payload.data;
 
+                                            // console.log(loca.label);
+
+                                            await fetch(`https://api.fixy.help/api/v1/?fix=${queryStr}&location=${loca.label}&tags=${tags}`)
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    // console.log(data.payload);
+                                                    cookie.save('requested', data.payload.data.id);
+                                                    // console.log(data.payload.data.id);
+                                                    history.push('/search');
+                                            });
+                                        });
                                 }}
                                 >Done</Button>
                             </InputGroup>
                         </div>
                     </ModalBody>
                 </Modal>
-                <h3 className="text-bold">Fixy</h3>
+                <h3 className="text-bold" style={{fontFamily: "museomoderno"}}>Fixy</h3>
                 <div className="container mt-5 w-sm-100">
                     <InputGroup>
                         <FormInput placeholder="What do you need ?" onChange={(e) => {
