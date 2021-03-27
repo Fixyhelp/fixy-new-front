@@ -23,6 +23,7 @@ const SearchPage = () => {
 
     const [queryDetails, queryDetailsSet] = useState(null);
     const [loca, setLoca] = useState(null);
+    const [queryResult, queryResultSet] = useState(null);
 
     const getInfo = async () => {
 
@@ -30,6 +31,15 @@ const SearchPage = () => {
             .then(response => response.json())
             .then(data => {
                 queryDetailsSet(data.payload.data);
+            });
+    }
+
+    const getResult = async () => {
+
+        await fetch(``)
+            .then(res=> res.json())
+            .then(data => {
+
             });
     }
 

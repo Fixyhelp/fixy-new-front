@@ -75,18 +75,21 @@ const SearchNotFound = () => {
                             </InputGroupAddon>
                         </InputGroup>
                     </div>
-                    <p>
-                        Your Search - <b>{queryDetails.query_string}</b> <br /> did not match any vendor.
-                    </p>
-                    <h4 className="mt-2 text-left">Suggestions for you</h4>
-                    <ul>
-                        <li>
-                            Make sure that all keywords are spelled correctly.
-                        </li>
-                        <li>
-                            Try a diffrent keyword.
-                        </li>
-                    </ul>
+                    <div className="text-center m-5">
+
+                        <p>
+                            Your Search - <b>{queryDetails.query_string}</b> <br /> did not match any vendor.
+                        </p>
+                        <h4 className="mt-2 text-left">Suggestions for you</h4>
+                        <ul>
+                            <li>
+                                Make sure that all keywords are spelled correctly.
+                            </li>
+                            <li>
+                                Try a diffrent keyword.
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </>
