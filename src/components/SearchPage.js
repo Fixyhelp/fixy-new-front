@@ -95,7 +95,7 @@ const SearchPage = () => {
                                         </div>
                                         <div className="col-2">
                                             <Button href={value.whatsapp_link} theme="success" size="sm" className="m-1"><WhatsApp /></Button>
-                                            <Button href={value.phone} theme="info" size="sm" className="m-1"><Phone /></Button>
+                                            <Button href={"callto:"+value.phone} theme="info" size="sm" className="m-1"><Phone /></Button>
                                             <a style={{fontSize: 13}}>{value.location}</a>
                                         </div>
                                     </div>
