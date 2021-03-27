@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import cookie from 'react-cookies';
-import GooglePlacesAutocomplete, { geocodeByAddress } from 'react-google-places-autocomplete';
+import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import { 
     InputGroup,
     InputGroupText,
@@ -28,6 +28,7 @@ const HomeScreen = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [queryStr, setQueryStr] = useState("");
     const [loca, setLoca] = useState(null);
+    const [addr, setAddr] = useState(null);
 
     const history = useHistory();
 
@@ -71,6 +72,13 @@ const HomeScreen = () => {
     const handleSubmit = () =>{
         toggleLoc();
     }
+    
+    const handleSelect = () => {
+        geocodeByAddress('Nigeria')
+            .then(results => getLatLng(results[0]))
+            .then(latLng => console.log('Success', latLng))
+            .catch(error => console.error('Error', error));
+        };
 
     return (
         <div className="text-center mn-h-1">
@@ -148,6 +156,7 @@ const HomeScreen = () => {
                                     selectProps={{
                                         loca,
                                         onChange: setLoca,
+                                        onSelect: handleSelect,
                                         styles: {
                                           input: (provided) => ({
                                             ...provided,
