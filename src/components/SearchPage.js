@@ -89,22 +89,21 @@ const SearchPage = () => {
                                                     {value.websites}
                                                 </a>
                                                 <p>
-                                                    Remote
+                                                    {value.business_address}
                                                 </p>
                                             </div>
                                         </div>
                                         <div className="col-2">
                                             <Button theme="success" size="sm" className="m-1"><WhatsApp /></Button>
                                             <Button theme="info" size="sm" className="m-1"><Phone /></Button>
-                                            <a style={{fontSize: 13}}>Ikorodu,Lagos</a>
+                                            <a style={{fontSize: 13}}>{value.location}</a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                                 )
                             })
                         }
-
+                    </div>
                     </div>
             </div>
         </>
